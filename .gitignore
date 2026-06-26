@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+embed_tmp/
+Masterclass_raw.pptx
