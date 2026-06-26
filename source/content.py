@@ -98,7 +98,7 @@ def slide_cover():
                 "et même si ton pays n'est pas encore éligible.", w=10.4, size=15.5)
     # presenter card
     s+=card(MX,5.5,6.4,1.18,fill=CARD,line=BORDER)
-    s+=chip(MX+0.26,5.74,0.7,ic("1-1"),grad=GR_PRIMARY,pad=0.16)
+    s+=avatar(MX+0.26,5.74,0.7,"Kevin Chris Atchof",GR_PRIMARY,slug="kevin-chris-digital")
     s+=textbox(MX+1.18,5.66,5.1,1.0,[
         {"runs":[{"t":"Kevin Chris Atchof","font":FONT_TB,"size":16.5,"color":TXT}]},
         {"space_before":2,"line":1.12,"runs":[{"t":"Le créateur le plus suivi d'Afrique francophone sur la monétisation Facebook","font":FONT_B,"size":11,"color":TXT2}]},
@@ -477,11 +477,17 @@ def slide_now():
     rows=[(ic("17-1"),"Le guide complet, 7 chapitres, écrit à partir de mon expérience réelle"),
           (ic("17-2"),"Des tutoriels vidéo pas-à-pas pour la config et le déblocage"),
           (ic("17-3"),"Une communauté privée WhatsApp pour ne jamais rester bloqué")]
-    yy=4.95
+    yy=4.12
     for f,txt in rows:
         s+=chip(MX,yy,0.5,f,grad=GR_PRIMARY,pad=0.11)
-        s+=textbox(MX+0.74,yy,9.8,0.5,[{"runs":[{"t":txt,"font":FONT_BM,"size":15,"color":TXT}]}],valign="middle")
-        yy+=0.66
+        s+=textbox(MX+0.74,yy,7.0,0.5,[{"line":1.08,"runs":[{"t":txt,"font":FONT_BM,"size":14,"color":TXT}]}],valign="middle")
+        yy+=0.72
+    # portrait à droite
+    d=2.7; px=9.45; py=3.62
+    s+=avatar(px,py,d,"Kevin Chris Atchof",GR_PRIMARY,slug="kevin-chris-digital")
+    s+=[el("rrect", x=px+d/2-1.35, y=py+d+0.16, w=2.7, h=0.34, radius=0.17, fill=CARD_HI, line=BORDER_HI, line_w=1)]
+    s+=textbox(px+d/2-1.35,py+d+0.16,2.7,0.34,[{"align":"c","runs":[
+        {"t":"Kevin Chris Atchof","font":FONT_BS,"size":10.5,"grad":[(0,BLUE,100),(100,VIOLET,100)],"gangle":0}]}],valign="middle")
     s+=[el("text", x=W_IN-MX-3, y=6.95, w=3, h=0.3, paras=[{"align":"r","runs":[
         {"t":"© Kevin Chris Digital","font":FONT_BS,"size":9.5,"color":TXT3,"spc":1}]}])]
     return s
