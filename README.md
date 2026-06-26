@@ -4,7 +4,11 @@ Refonte complète du design de la présentation de masterclass de **Kevin Chris 
 
 ## Livrable
 
-**`Masterclass_Facebook_KevinChris_REDESIGN.pptx`** — 20 slides, format 16:9, **polices intégrées** (le fichier reste identique sur n'importe quel ordinateur, même sans les polices installées). Les notes du présentateur de la version originale ont été conservées.
+**`Masterclass_Facebook_KevinChris_REDESIGN.pptx`** — 23 slides, format 16:9, **polices intégrées** (le fichier reste identique sur n'importe quel ordinateur, même sans les polices installées). Les notes du présentateur de la version originale ont été conservées.
+
+### Slides ajoutées
+- **Créer du contenu SANS IA** & **Créer du contenu AVEC l'IA** (Partie 2) — l'authenticité comme socle, l'IA comme accélérateur.
+- **Le mur des créateurs accompagnés** — preuve sociale par les pairs (10 créateurs). Les avatars sont générés à partir des initiales ; remplace-les par les vraies photos (`assets/clients/*.jpg`) pour le rendu final.
 
 ## Direction artistique — « Aurora Dark Premium »
 

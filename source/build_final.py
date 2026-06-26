@@ -9,16 +9,31 @@ OUT = "Masterclass_Facebook_KevinChris_REDESIGN.pptx"
 render_pptx(C.build_all(), RAW)
 print("raw pptx built")
 
-# 1b) port speaker notes from original (same slide order)
+# 1b) port speaker notes from original + notes for the 3 new slides
 from pptx import Presentation as _P
 orig=_P("orig.pptx"); new=_P(RAW)
 orig_slides=list(orig.slides); new_slides=list(new.slides)
+# mapping: new slide (1-based) -> original slide number (or None for new slides)
+NEW2ORIG={1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8, 11:9,12:10,13:11,14:12,15:13,
+          16:14,17:15,18:16,19:17,20:18,21:19,23:20}
+# coaching notes for the 3 inserted slides
+NEW_NOTES={
+ 9:"Création SANS IA. Martèle que l'authenticité est non-négociable, surtout en Afrique francophone : visage, langue, vécu. Donne un exemple d'une de tes vidéos 'brutes' qui a cartonné.",
+ 10:"Création AVEC l'IA. Montre un prompt en direct si possible. Rassure : l'IA ne remplace pas leur personnalité, elle fait gagner du temps. Pont naturel vers la valeur du pack (prompts & process détaillés).",
+ 22:"Preuve sociale par les pairs. Cite 1-2 cas précis parmi ces créateurs (résultat obtenu) avant d'enchaîner sur l'offre. À FAIRE : remplacer les avatars à initiales par les vraies photos avant le live.",
+}
 ported=0
-for o,n in zip(orig_slides,new_slides):
-    if o.has_notes_slide:
-        t=o.notes_slide.notes_text_frame.text
-        if t and t.strip():
-            n.notes_slide.notes_text_frame.text=t; ported+=1
+for ni,n in enumerate(new_slides,1):
+    txt=None
+    if ni in NEW2ORIG:
+        o=orig_slides[NEW2ORIG[ni]-1]
+        if o.has_notes_slide:
+            t=o.notes_slide.notes_text_frame.text
+            if t and t.strip(): txt=t
+    elif ni in NEW_NOTES:
+        txt=NEW_NOTES[ni]
+    if txt:
+        n.notes_slide.notes_text_frame.text=txt; ported+=1
 new.save(RAW)
 print("notes ported:",ported)
 

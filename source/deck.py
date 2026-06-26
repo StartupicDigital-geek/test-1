@@ -293,8 +293,9 @@ def render_preview(spec, scale=1.0):
                 g=_radial_img(d,e["color"],e.get("alpha",55))
                 base.alpha_composite(g,(S(e["cx"]-e["r"]),S(e["cy"]-e["r"])))
         elif t in ("rrect","oval","line"):
-            x,y,w,h=S(e["x"]),S(e["y"]),S(e["w"]),S(e["h"])
-            rad=S(e.get("radius",0.14)) if t=="rrect" else (min(w,h)//2 if t=="oval" else 0)
+            x,y,w,h=S(e["x"]),S(e["y"]),max(1,S(e["w"])),max(1,S(e["h"]))
+            rad=min(S(e.get("radius",0.14)), (min(w,h)-1)//2) if t=="rrect" else (min(w,h)//2 if t=="oval" else 0)
+            rad=max(0,rad)
             layer=Image.new("RGBA",(W,H),(0,0,0,0)); ld=ImageDraw.Draw(layer)
             if e.get("grad"):
                 gimg=_grad_img(max(1,w),max(1,h),e.get("angle",90),e["grad"])

@@ -16,12 +16,12 @@ def bg(*glows, base_angle=110):
     for g in glows: out.append(el("glow", **g))
     return out
 
-def footer(num):
+def footer(num=None):
     return [
         el("text", x=MX, y=7.04, w=6, h=0.3, paras=[{"runs":[
             {"t":"KEVIN CHRIS DIGITAL","font":FONT_BS,"size":8.5,"color":TXT3,"spc":2.2}]}]),
-        el("text", x=W_IN-MX-2, y=7.04, w=2, h=0.3, paras=[{"align":"r","runs":[
-            {"t":f"{num:02d} / 20","font":FONT_BS,"size":8.5,"color":TXT3,"spc":1.5}]}]),
+        el("text", x=W_IN-MX-2, y=7.04, w=2, h=0.3, _pagenum=True, paras=[{"align":"r","runs":[
+            {"t":"","font":FONT_BS,"size":8.5,"color":TXT3,"spc":1.5}]}]),
         el("line", x=MX, y=6.96, w=CW, h=0.012, fill=BORDER),
     ]
 
@@ -123,7 +123,7 @@ def slide_agenda():
     for i,(n,f,ti,de,gr) in enumerate(items):
         r,c=divmod(i,3)
         s+=agenda_card(x0+c*(cw+0.36), y0+r*(ch+0.32), cw, ch, n,f,ti,de,gr)
-    s+=footer(2)
+    s+=footer()
     return s
 
 def story_card(x,y,w,h,iconf,badge,title,desc,grad):
@@ -148,7 +148,7 @@ def slide_story():
     for i,(f,b,ti,de,gr) in enumerate(cards):
         r,c=divmod(i,2)
         s+=story_card(x0+c*(cw+0.4), y0+r*(ch+0.34), cw, ch, f,b,ti,de,gr)
-    s+=footer(3)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -208,7 +208,7 @@ def slide_algo():
         s+=chip(rx+0.3,cy+0.3,0.62,f,grad=gr,pad=0.14)
         s+=textbox(rx+1.06,cy+0.26,rw-1.3,0.4,[{"runs":[{"t":ti,"font":FONT_TB,"size":14,"color":TXT}]}])
         s+=textbox(rx+1.06,cy+0.66,rw-1.32,0.55,[{"line":1.12,"runs":[{"t":de,"font":FONT_B,"size":10.8,"color":TXT2}]}])
-    s+=footer(5)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -234,7 +234,7 @@ def slide_ecosystem():
         s+=chip(x+0.3,y+0.3,0.64,f,grad=gr,pad=0.15)
         s+=textbox(x+1.08,y+0.42,cw-1.3,0.5,[{"runs":[{"t":ti,"font":FONT_TB,"size":15,"color":TXT}]}],valign="middle")
         s+=textbox(x+0.3,y+1.18,cw-0.6,ch-1.3,[{"line":1.18,"runs":[{"t":de,"font":FONT_B,"size":11,"color":TXT2}]}])
-    s+=footer(6)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -277,7 +277,7 @@ def slide_niche():
             {"t":t1+" — ","font":FONT_BS,"size":13,"color":TXT},
             {"t":t2,"font":FONT_B,"size":13,"color":TXT2}]}])
         yy+=0.59
-    s+=footer(8)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -312,7 +312,7 @@ def slide_cmp():
         s+=chip(x+0.3,fy+0.3,0.62,f,grad=gr,pad=0.14)
         s+=textbox(x+0.3,fy+1.06,fw-0.6,0.4,[{"runs":[{"t":ti,"font":FONT_TB,"size":13.5,"color":TXT}]}])
         s+=textbox(x+0.3,fy+1.44,fw-0.6,0.5,[{"line":1.14,"runs":[{"t":de,"font":FONT_B,"size":10.8,"color":TXT2}]}])
-    s+=footer(10)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -344,7 +344,7 @@ def slide_eligibility():
     s+=textbox(MX+1.18,wy+0.16,CW-1.5,wh-0.3,[
         {"runs":[{"t":"Le piège que beaucoup oublient","font":FONT_TB,"size":13.5,"color":ROSE}]},
         {"space_before":3,"line":1.12,"runs":[{"t":"Sans compte de règlement validé, Facebook ne pourra JAMAIS te payer — même avec des millions de vues.","font":FONT_B,"size":12,"color":TXT2}]}])
-    s+=footer(11)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -368,7 +368,7 @@ def slide_strategy():
         s+=numbadge(x+0.32,y+0.32,0.66,n,grad=GR_CYAN)
         s+=textbox(x+1.16,y+0.36,cw-1.4,0.5,[{"runs":[{"t":ti,"font":FONT_TB,"size":15.5,"color":TXT}]}],valign="middle")
         s+=textbox(x+0.34,y+1.08,cw-0.66,0.8,[{"line":1.16,"runs":[{"t":de,"font":FONT_B,"size":11.5,"color":TXT2}]}])
-    s+=footer(13)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -405,7 +405,7 @@ def slide_paypal():
         {"t":"La solution : ","font":FONT_BS,"size":12.5,"color":GREEN},
         {"t":"un compte bien configuré + le document Meta Payout Source Transfer, signé via Docusign et envoyé au support depuis ton ordinateur.","font":FONT_B,"size":12.5,"color":TXT2}]}])
     s+=textbox(rx+0.4,cy+3.95,cw-0.8,0.5,[{"runs":[{"t":"Une fois validé, tu peux y relier ton propre PayPal.","font":FONT_BS,"size":12,"color":TXT}]}])
-    s+=footer(14)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -444,7 +444,7 @@ def slide_protect():
         yy+=0.82
     s+=[el("rrect", x=rx+0.4, y=yy+0.18, w=cw-0.8, h=0.78, radius=0.13, grad=[(0,GREEN,16),(100,CYAN,16)], angle=90, line=BORDER_HI, line_w=1)]
     s+=textbox(rx+0.4,yy+0.18,cw-0.8,0.78,[{"align":"c","runs":[{"t":"« Ne mets pas tous tes œufs dans le même panier. »","font":FONT_BS,"size":13,"color":TXT}]}],valign="middle")
-    s+=footer(16)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -521,7 +521,7 @@ def slide_pricing():
                 {"t":"✓  ","font":FONT_BS,"size":11.5,"color":gr[0]},
                 {"t":ft,"font":FONT_B,"size":11,"color":TXT2}]}])
             fy+=0.42
-    s+=footer(18)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -552,7 +552,7 @@ def slide_proof():
         {"line":1.18,"runs":[{"t":"« Là où il y a une grande volonté, il ne peut pas y avoir de grandes difficultés. »  ","font":FONT_BS,"size":15,"color":TXT},
                               {"t":"— Machiavel","font":FONT_B,"size":13,"color":TXT3}]},
         {"space_before":6,"runs":[{"t":"Depuis l'Afrique, j'encaisse tous les mois. Toi aussi, tu peux.","font":FONT_BM,"size":13,"color":TXT2}]}])
-    s+=footer(19)
+    s+=footer()
     return s
 
 # =====================================================================
@@ -583,19 +583,135 @@ def slide_cta():
     return s
 
 # =====================================================================
+#  COMPOSANTS — carte feature 2x2, bandeau, avatar
+def feat_card(x,y,w,h,iconf,title,desc,grad):
+    out=card(x,y,w,h,fill=CARD2)
+    out+=chip(x+0.3,y+0.3,0.62,iconf,grad=grad,pad=0.14)
+    out+=textbox(x+1.06,y+0.32,w-1.3,0.62,[{"line":1.04,"runs":[{"t":title,"font":FONT_TB,"size":14,"color":TXT}]}],valign="middle")
+    out+=textbox(x+0.32,y+1.04,w-0.64,h-1.16,[{"line":1.16,"runs":[{"t":desc,"font":FONT_B,"size":11.5,"color":TXT2}]}])
+    return out
+
+def info_banner(y,iconf,title,text,grad,h=0.84):
+    out=[el("rrect", x=MX, y=y, w=CW, h=h, radius=0.16, fill=CARD2, line=grad[0], line_w=1.2,
+            shadow={"blur":18,"dist":8,"alpha":32,"color":grad[0]})]
+    out+=chip(MX+0.32, y+(h-0.58)/2, 0.58, iconf, grad=grad, pad=0.13)
+    out+=textbox(MX+1.1, y+0.15, CW-1.4, h-0.28,[
+        {"runs":[{"t":title,"font":FONT_TB,"size":13,"grad":[(0,grad[0],100),(100,grad[1],100)],"gangle":0}]},
+        {"space_before":3,"line":1.12,"runs":[{"t":text,"font":FONT_B,"size":11.8,"color":TXT2}]}])
+    return out
+
+def _initials(name):
+    parts=[p for p in name.replace("'"," ").replace("’"," ").split() if p]
+    letters=[p[0] for p in parts if p[0].isalpha()]
+    return ("".join(letters[:2]) or name[:2]).upper()
+
+def avatar(x,y,d,name,grad):
+    return [
+        el("oval", x=x, y=y, w=d, h=d, grad=[(0,grad[0],100),(100,grad[1],100)], angle=125,
+           shadow=True),
+        el("text", x=x, y=y, w=d, h=d, valign="middle", paras=[{"align":"c","runs":[
+            {"t":_initials(name),"font":FONT_HB,"size":d*30,"color":WHITE}]}]),
+    ]
+
+# =====================================================================
+#  SLIDE — Créer du contenu SANS IA
+# =====================================================================
+def slide_content_noia():
+    s=bg({"cx":-0.2,"cy":0.2,"r":3.0,"color":ROSE,"alpha":24},
+         {"cx":13.2,"cy":7.4,"r":3.4,"color":GOLD,"alpha":22})
+    s+=kicker(MX,0.55,"PARTIE 2 · CRÉER DU CONTENU",grad=GR_ROSE)
+    s+=heading(MX,0.94,"Créer du contenu SANS IA",size=30)
+    s+=subtitle(MX,1.6,"L'authenticité brute : ton visage, ta voix, ton vécu. C'est le socle qui crée le lien — et la confiance qui vend.",size=13.5,color=TXT3)
+    cards=[(ic("18-3"),"Ton authenticité = ton avantage","Montre ton visage, parle ta langue, partage ton vécu. La proximité crée la confiance qui vend.",GR_ROSE),
+           (ic("17-2"),"Filme simplement","Un smartphone, une bonne lumière, un son clair. Le message compte toujours plus que le matériel.",GR_GOLD),
+           (ic("7-1"),"Raconte des histoires","Pars d'un problème réel, montre ta galère, finis par la solution. L'histoire capte plus que le conseil.",GR_GREEN),
+           (ic("3-3"),"Le terrain, ta mine d'idées","Tes clients, tes échecs, l'actualité locale. Note chaque question qu'on te pose : c'est ton prochain post.",GR_PRIMARY)]
+    cw=(CW-0.4)/2; ch=1.7; y0=2.26
+    for i,(f,ti,de,gr) in enumerate(cards):
+        r,c=divmod(i,2)
+        s+=feat_card(MX+c*(cw+0.4), y0+r*(ch+0.16), cw, ch, f,ti,de,gr)
+    s+=info_banner(5.84,ic("11-3"),
+        "À retenir","Sans authenticité, aucune technique ne tient. C'est ta personnalité qui transforme un spectateur en abonné fidèle.",GR_GOLD)
+    s+=footer()
+    return s
+
+# =====================================================================
+#  SLIDE — Créer du contenu AVEC l'IA
+# =====================================================================
+def slide_content_ia():
+    s=bg({"cx":13.2,"cy":0.2,"r":3.2,"color":BLUE,"alpha":26},
+         {"cx":-0.2,"cy":7.4,"r":3.4,"color":VIOLET,"alpha":24})
+    s+=kicker(MX,0.55,"PARTIE 2 · CRÉER DU CONTENU",grad=GR_ROSE)
+    s+=heading(MX,0.94,"Créer du contenu AVEC l'IA",size=30)
+    s+=subtitle(MX,1.6,"L'IA ne te remplace pas — elle multiplie ta vitesse. Tu gardes ton authenticité, tu gagnes 10× en productivité.",size=13.5,color=TXT3)
+    cards=[(ic("5-2"),"Des idées & des hooks en rafale","Demande à une IA (ChatGPT, Claude) 20 angles sur ta niche et des accroches qui stoppent le scroll.",GR_PRIMARY),
+           (ic("2-2"),"Scripts & légendes","Génère un script structuré (hook → valeur → action), puis réécris-le avec TES mots pour sonner vrai.",GR_CYAN),
+           (ic("10-1"),"Visuels & montage assistés","Miniatures, sous-titres, voix off, images : un rendu pro en quelques minutes (Canva, CapCut…).",GR_ROSE),
+           (ic("18-2"),"Planifie & recycle","L'IA transforme 1 vidéo en 5 contenus : carrousel, citation, post texte. Publie plus sans t'épuiser.",GR_GREEN)]
+    cw=(CW-0.4)/2; ch=1.7; y0=2.26
+    for i,(f,ti,de,gr) in enumerate(cards):
+        r,c=divmod(i,2)
+        s+=feat_card(MX+c*(cw+0.4), y0+r*(ch+0.16), cw, ch, f,ti,de,gr)
+    s+=info_banner(5.84,ic("6-4"),
+        "Règle d'or","L'IA propose, TU valides. Un contenu 100 % IA sonne faux : garde ta voix — l'IA n'est que ton assistant.",GR_PRIMARY)
+    s+=footer()
+    return s
+
+# =====================================================================
+#  SLIDE — Mur des créateurs qui me font confiance
+# =====================================================================
+def slide_trustwall():
+    s=bg({"cx":-0.2,"cy":-0.2,"r":3.2,"color":VIOLET,"alpha":26},
+         {"cx":13.2,"cy":7.6,"r":3.6,"color":BLUE,"alpha":26},
+         {"cx":11.0,"cy":0.4,"r":2.0,"color":CYAN,"alpha":16})
+    s+=kicker(MX,0.55,"ILS ME FONT CONFIANCE")
+    s+=heading(MX,0.94,"Le mur des créateurs accompagnés",size=29)
+    s+=subtitle(MX,1.6,"Des créateurs, artistes et marques que j'aide à grandir et à monétiser au quotidien.",size=13.5,color=TXT3)
+    creators=[("Laurisse Digital","Créatrice digitale","Monétisation"),
+              ("Le MB Bandjounais","Humoriste","Gestion de page"),
+              ("L'étoile Kribienne","Influenceuse","Certification"),
+              ("Papy Le Jongleur","Artiste","Facebook Ads"),
+              ("Justine Kem's","Créatrice lifestyle","Création de contenu"),
+              ("Dilane Nofole Pro","Entrepreneur","Audit de page"),
+              ("Kevin Chris Digital","Coach digital","FaceHOOK Studio"),
+              ("Mbanga Diaspora","Média","Sécurité"),
+              ("Alain Tchamo Officiel","Artiste musique","Monétisation"),
+              ("Dj Styvo Godson","DJ / Artiste","Facebook Ads")]
+    grads=[GR_PRIMARY,GR_ROSE,GR_GOLD,GR_CYAN,GR_GREEN,GR_CYAN,GR_PRIMARY,GR_ROSE,GR_GOLD,GR_GREEN]
+    gap=0.22; cw=(CW-4*gap)/5; ch=1.96; y0=2.45
+    for i,(name,role,tag) in enumerate(creators):
+        r,c=divmod(i,5)
+        x=MX+c*(cw+gap); y=y0+r*(ch+0.2); gr=grads[i]
+        s+=card(x,y,cw,ch,fill=CARD)
+        d=0.76
+        s+=avatar(x+cw/2-d/2, y+0.2, d, name, gr)
+        s+=textbox(x+0.12,y+1.04,cw-0.24,0.32,[{"align":"c","line":1.0,"runs":[{"t":name,"font":FONT_BS,"size":11,"color":TXT}]}])
+        s+=textbox(x+0.12,y+1.34,cw-0.24,0.24,[{"align":"c","runs":[{"t":role,"font":FONT_B,"size":9,"color":TXT3}]}])
+        s+=[el("rrect", x=x+0.22, y=y+1.6, w=cw-0.44, h=0.28, radius=0.14, fill=CARD_HI, line=BORDER_HI, line_w=1)]
+        s+=textbox(x+0.16,y+1.6,cw-0.32,0.28,[{"align":"c","runs":[{"t":tag,"font":FONT_BS,"size":8.3,"grad":[(0,gr[0],100),(100,gr[1],100)],"gangle":0,"spc":0.2}]}],valign="middle")
+    s+=footer()
+    return s
+
+# =====================================================================
 ALL_SLIDES = [
     slide_cover, slide_agenda, slide_story,
     lambda: section("1","PARTIE 1","Comprendre Facebook avant de monétiser","Tu ne peux pas gagner à un jeu dont tu ignores les règles.",ic("4-1"),GR_PRIMARY,BLUE),
     slide_algo, slide_ecosystem,
     lambda: section("2","PARTIE 2","Créer du contenu qui performe","Le contenu est roi — mais seulement s'il sert l'algorithme.",ic("7-1"),GR_ROSE,VIOLET),
-    slide_niche,
+    slide_niche, slide_content_noia, slide_content_ia,
     lambda: section("3","PARTIE 3","Les programmes de monétisation","Comment Facebook paie réellement les créateurs en 2025.",ic("9-1"),GR_GOLD,GOLD),
     slide_cmp, slide_eligibility,
     lambda: section("4","PARTIE 4","Monétiser depuis un pays inéligible","Inéligible ne veut pas dire impossible. C'est un détour, pas une fin.",ic("12-1"),GR_CYAN,CYAN),
     slide_strategy, slide_paypal,
     lambda: section("5","PARTIE 5","Gérer les restrictions & diversifier","Sécurise ta page, puis bâtis ton propre système de revenus.",ic("15-1"),GR_GREEN,GREEN),
-    slide_protect, slide_now, slide_pricing, slide_proof, slide_cta,
+    slide_protect, slide_now, slide_pricing, slide_proof, slide_trustwall, slide_cta,
 ]
 
 def build_all():
-    return [fn() for fn in ALL_SLIDES]
+    slides=[fn() for fn in ALL_SLIDES]
+    total=len(slides)
+    for i,sp in enumerate(slides,1):
+        for e in sp:
+            if e.get("_pagenum"):
+                e["paras"][0]["runs"][0]["t"]=f"{i:02d} / {total}"
+    return slides
