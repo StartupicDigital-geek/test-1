@@ -8,7 +8,7 @@ Refonte complète du design de la présentation de masterclass de **Kevin Chris 
 
 ### Slides ajoutées
 - **Créer du contenu SANS IA** & **Créer du contenu AVEC l'IA** (Partie 2) — l'authenticité comme socle, l'IA comme accélérateur.
-- **Le mur des créateurs accompagnés** — preuve sociale par les pairs (10 créateurs). Les avatars sont générés à partir des initiales ; remplace-les par les vraies photos (`assets/clients/*.jpg`) pour le rendu final.
+- **Le mur des créateurs accompagnés** — preuve sociale par les pairs (10 créateurs), avec leurs **vraies photos** (`assets/clients/*.jpg`) en avatars ronds à anneau dégradé. Si une photo manque, l'avatar bascule automatiquement sur les initiales.
 
 ## Direction artistique — « Aurora Dark Premium »
 

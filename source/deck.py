@@ -222,6 +222,15 @@ def _pil_font(name,size):
         _fcache[key]=ImageFont.truetype(os.path.join(FONTDIR,FONT_FILES.get(name,"Inter-Regular.ttf")),size)
     return _fcache[key]
 
+def make_circle_avatar(src, out, d=360):
+    """Recadre une photo en cercle (fond transparent) pour servir d'avatar."""
+    im=Image.open(src).convert("RGBA")
+    w,h=im.size; sq=min(w,h)
+    im=im.crop(((w-sq)//2,(h-sq)//2,(w-sq)//2+sq,(h-sq)//2+sq)).resize((d,d),Image.LANCZOS)
+    mask=Image.new("L",(d,d),0); ImageDraw.Draw(mask).ellipse([0,0,d-1,d-1],fill=255)
+    res=Image.new("RGBA",(d,d),(0,0,0,0)); res.paste(im,(0,0),mask)
+    res.save(out); return out
+
 def _lerp(a,b,t): return tuple(int(a[i]+(b[i]-a[i])*t) for i in range(3))
 
 def _grad_img(w,h,angle,stops):

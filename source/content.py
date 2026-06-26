@@ -1,8 +1,18 @@
 """Contenu des 20 slides — Masterclass Kevin Chris Digital."""
 from deck import *
+import os
 
 MED = "extract/ppt/media/"
 def ic(n): return MED+f"image-{n}.png"
+
+# dossier des photos clients (copiées dans test-1) + cache des avatars ronds
+CLIENTS = os.environ.get("CLIENTS_DIR", "/home/user/test-1/assets/clients")
+AVA_CACHE = "avatars_cache"; os.makedirs(AVA_CACHE, exist_ok=True)
+def client_photo(slug):
+    for ext in (".jpg",".jpeg",".png",".webp",".JPG",".jpeg"):
+        p=os.path.join(CLIENTS, slug+ext)
+        if os.path.exists(p): return p
+    return None
 
 MX = 0.92          # marge latérale
 CW = W_IN-2*MX     # largeur contenu = 11.49
@@ -605,7 +615,17 @@ def _initials(name):
     letters=[p[0] for p in parts if p[0].isalpha()]
     return ("".join(letters[:2]) or name[:2]).upper()
 
-def avatar(x,y,d,name,grad):
+def avatar(x,y,d,name,grad,slug=None):
+    photo=client_photo(slug) if slug else None
+    if photo:
+        cache=os.path.join(AVA_CACHE, (slug or name)+".png")
+        make_circle_avatar(photo, cache)
+        ring=0.05
+        return [
+            el("oval", x=x-ring, y=y-ring, w=d+2*ring, h=d+2*ring,
+               grad=[(0,grad[0],100),(100,grad[1],100)], angle=125, shadow=True),
+            el("icon", x=x, y=y, w=d, h=d, file=cache),
+        ]
     return [
         el("oval", x=x, y=y, w=d, h=d, grad=[(0,grad[0],100),(100,grad[1],100)], angle=125,
            shadow=True),
@@ -667,24 +687,24 @@ def slide_trustwall():
     s+=kicker(MX,0.55,"ILS ME FONT CONFIANCE")
     s+=heading(MX,0.94,"Le mur des créateurs accompagnés",size=29)
     s+=subtitle(MX,1.6,"Des créateurs, artistes et marques que j'aide à grandir et à monétiser au quotidien.",size=13.5,color=TXT3)
-    creators=[("Laurisse Digital","Créatrice digitale","Monétisation"),
-              ("Le MB Bandjounais","Humoriste","Gestion de page"),
-              ("L'étoile Kribienne","Influenceuse","Certification"),
-              ("Papy Le Jongleur","Artiste","Facebook Ads"),
-              ("Justine Kem's","Créatrice lifestyle","Création de contenu"),
-              ("Dilane Nofole Pro","Entrepreneur","Audit de page"),
-              ("Kevin Chris Digital","Coach digital","FaceHOOK Studio"),
-              ("Mbanga Diaspora","Média","Sécurité"),
-              ("Alain Tchamo Officiel","Artiste musique","Monétisation"),
-              ("Dj Styvo Godson","DJ / Artiste","Facebook Ads")]
+    creators=[("Laurisse Digital","Créatrice digitale","Monétisation","laurisse-digital"),
+              ("Le MB Bandjounais","Humoriste","Gestion de page","le-mb-bandjounais"),
+              ("L'étoile Kribienne","Influenceuse","Certification","letoile-kribienne"),
+              ("Papy Le Jongleur","Artiste","Facebook Ads","papy-le-jongleur"),
+              ("Justine Kem's","Créatrice lifestyle","Création de contenu","justine-kems"),
+              ("Dilane Nofole Pro","Entrepreneur","Audit de page","dilane-nofole-pro"),
+              ("Kevin Chris Digital","Coach digital","FaceHOOK Studio","kevin-chris-digital"),
+              ("Mbanga Diaspora","Média","Sécurité","mbanga-diaspora"),
+              ("Alain Tchamo Officiel","Artiste musique","Monétisation","alain-tchamo-officiel"),
+              ("Dj Styvo Godson","DJ / Artiste","Facebook Ads","dj-styvo-godson")]
     grads=[GR_PRIMARY,GR_ROSE,GR_GOLD,GR_CYAN,GR_GREEN,GR_CYAN,GR_PRIMARY,GR_ROSE,GR_GOLD,GR_GREEN]
     gap=0.22; cw=(CW-4*gap)/5; ch=1.96; y0=2.45
-    for i,(name,role,tag) in enumerate(creators):
+    for i,(name,role,tag,slug) in enumerate(creators):
         r,c=divmod(i,5)
         x=MX+c*(cw+gap); y=y0+r*(ch+0.2); gr=grads[i]
         s+=card(x,y,cw,ch,fill=CARD)
         d=0.76
-        s+=avatar(x+cw/2-d/2, y+0.2, d, name, gr)
+        s+=avatar(x+cw/2-d/2, y+0.2, d, name, gr, slug=slug)
         s+=textbox(x+0.12,y+1.04,cw-0.24,0.32,[{"align":"c","line":1.0,"runs":[{"t":name,"font":FONT_BS,"size":11,"color":TXT}]}])
         s+=textbox(x+0.12,y+1.34,cw-0.24,0.24,[{"align":"c","runs":[{"t":role,"font":FONT_B,"size":9,"color":TXT3}]}])
         s+=[el("rrect", x=x+0.22, y=y+1.6, w=cw-0.44, h=0.28, radius=0.14, fill=CARD_HI, line=BORDER_HI, line_w=1)]
